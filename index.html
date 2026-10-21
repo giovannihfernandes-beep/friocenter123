@@ -431,6 +431,8 @@ async function readNota(txt,img){
     var ds=(txt.match(/\d{2}\/\d{2}\/\d{4}/g)||[]).filter(function(d){return d.slice(8)===yy&&d.slice(3,5)===mm}).map(brDate).sort();
     if(ds.length)out.faturada=ds[0];
   }
+  var mf=txt.match(/Recebemos\s+de\s+(.+?)\s+os\s+(?:produtos|servi[çc]os)/i);
+  if(mf)out.fornecedor=mf[1].replace(/\s+/g," ").trim();
   var mv=txt.match(/VALOR\s+TOTAL\s+DA\s+NOTA\D{0,30}?(\d{1,3}(?:\.\d{3})*,\d{2})/i);
   if(mv)out.valor=parseFloat(mv[1].replace(/\./g,"").replace(",","."));
   var opts={};
